@@ -8,6 +8,7 @@ import com.sisencodigital.TaskSphere.exceptions.BadRequestException;
 import com.sisencodigital.TaskSphere.exceptions.ResourceNotFoundException;
 import com.sisencodigital.TaskSphere.repositories.ProjectRepository;
 import com.sisencodigital.TaskSphere.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -63,5 +64,25 @@ public class ProjectService {
     public void deleteProject(Long id) {
         Project project = findByIdOrThrow(id);
         projectRepository.delete(project);
+    }
+
+    @Transactional
+    public ProjectResponseDTO assignMember(Long projectId,Long userId){
+        Project project=findByIdOrThrow(projectId);
+        User user=userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundException(userId + "User not found"));
+        project.getMembers().add(user);
+        user.getProjects().add(project);
+        userRepository.save(user);
+        return toResponse(project);
+    }
+
+    @Transactional
+    public ProjectResponseDTO removeMember(Long projectId,Long userId){
+        Project project=findByIdOrThrow(projectId);
+        User user=userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundException(userId + "User not found"));
+        project.getMembers().remove(user);
+        user.getProjects().remove(project);
+        userRepository.save(user);
+        return toResponse(project);
     }
 }
