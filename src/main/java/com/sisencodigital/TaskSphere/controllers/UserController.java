@@ -1,0 +1,45 @@
+package com.sisencodigital.TaskSphere.controllers;
+
+import com.sisencodigital.TaskSphere.dtos.responcedtos.UserResponseDTO;
+import com.sisencodigital.TaskSphere.entities.Role;
+import com.sisencodigital.TaskSphere.services.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/users")
+@RequiredArgsConstructor
+public class UserController {
+    private final UserService userService;
+
+    @GetMapping
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @GetMapping("/Team-Members")
+    public ResponseEntity<List<UserResponseDTO>> getTeamMembers(){
+        return ResponseEntity.ok(userService.getTeamMembers());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id){
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+    @PatchMapping("/{id}/Role")
+    public  ResponseEntity<UserResponseDTO> updateRole(@PathVariable Long id, @RequestParam Role role){
+        return ResponseEntity.ok(userService.updateRole(id,role));
+    }
+
+    @PatchMapping("/{id}/Active")
+    public ResponseEntity<UserResponseDTO> setActive(@PathVariable Long id,@RequestParam boolean active){
+        return ResponseEntity.ok(userService.setActive(id,active));
+    }
+
+
+
+
+}
