@@ -20,7 +20,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @GetMapping("/Team-Members")
+    @GetMapping("/team-members")
     public ResponseEntity<List<UserResponseDTO>> getTeamMembers(){
         return ResponseEntity.ok(userService.getTeamMembers());
     }
@@ -29,12 +29,12 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @PatchMapping("/{id}/Role")
+    @PatchMapping("/{id}/role")
     public  ResponseEntity<UserResponseDTO> updateRole(@PathVariable Long id, @RequestParam Role role){
         return ResponseEntity.ok(userService.updateRole(id,role));
     }
 
-    @PatchMapping("/{id}/Active")
+    @PatchMapping("/{id}/active")
     public ResponseEntity<UserResponseDTO> setActive(@PathVariable Long id,@RequestParam boolean active){
         return ResponseEntity.ok(userService.setActive(id,active));
     }

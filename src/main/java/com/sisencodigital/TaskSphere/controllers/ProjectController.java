@@ -44,12 +44,12 @@ public class ProjectController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{id}/Members/{userId}")
+    @PostMapping("/{id}/members/{userId}")
     public ResponseEntity <ProjectResponseDTO> assignMember(@PathVariable Long id,@PathVariable Long userId){
         return ResponseEntity.ok(projectService.assignMember(id,userId));
     }
 
-    @DeleteMapping("/{id}/Members/{userId}")
+    @DeleteMapping("/{id}/members/{userId}")
     public ResponseEntity<ProjectResponseDTO> removeMember(@PathVariable Long id,@PathVariable Long userId){
         return ResponseEntity.ok(projectService.removeMember(id,userId));
     }
