@@ -124,7 +124,7 @@ public class ReportService {
     public List<WeeklyResponseDTO> getMyReports(){
         Long userId = currentUserProvider.getCurrentUserId();
         return weekProjRepository
-                .findByUserIdOrderByWeekStartDateDesc(userId)
+                .findByUser_IdOrderByWeekStartDateDesc(userId)
                 .stream()
                 .map(this::mapToDTO)
                 .toList();

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface WeekProjRepository extends JpaRepository<WeeklyReport,Long>, JpaSpecificationExecutor<WeeklyReport> {
-    List<WeeklyReport> findByUserIdOrderByWeekStartDateDesc(Long userId);
+    List<WeeklyReport> findByUser_IdOrderByWeekStartDateDesc(Long userId);
     Optional<WeeklyReport> findByUserIdAndWeekStartDate(Long userId,LocalDate weekStartDate);
     List<WeeklyReport> findByWeekStartDateAndReportStatus(LocalDate weekStartDate, ReportStatus status);
     long countByWeekStartDateAndReportStatus(LocalDate weekStartDate, ReportStatus reportStatus);
