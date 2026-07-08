@@ -18,7 +18,7 @@ public class WeeklyReportRequestDTO {
     private Long projectId;
 
     @NotBlank(message = "Task planned required")
-    private String taskPlaned;
+    private String taskPlanned;
 
     @NotBlank(message = "Task completed is required")
     private String taskCompleted;

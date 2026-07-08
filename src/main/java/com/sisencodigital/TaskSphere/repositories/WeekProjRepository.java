@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface WeekProjRepository extends JpaRepository<WeeklyReport,Long>, JpaSpecificationExecutor<WeeklyReport> {
-    List<WeeklyReport> findByUserId(Long userId);
+    List<WeeklyReport> findByUserIdOrderByWeekStartDateDesc(Long userId);
     Optional<WeeklyReport> findByUserIdAndWeekStartDate(Long userId,LocalDate weekStartDate);
     List<WeeklyReport> findByWeekStartDateAndReportStatus(LocalDate weekStartDate, ReportStatus status);
     long countByWeekStartDateAndReportStatus(LocalDate weekStartDate, ReportStatus reportStatus);
@@ -33,7 +33,15 @@ public interface WeekProjRepository extends JpaRepository<WeeklyReport,Long>, Jp
             " GROUP BY r.project.name")
     List<Object[]> countReportsGroupedByProject(@Param("start") LocalDate Start,@Param("end") LocalDate end);
 
-    @Query("SELECT r.weekStartDate,COUNT(r) FROM WeeklyReport r"+" WHERE r.reportStatus=:status and (:userId is null or r.user.id=:userId) "+"AND r.weekStartDate BETWEEN :start AND :end " + " Group By r.weekStartDate ORDER BY r.weekStartDate ASC")
+    @Query("""
+             SELECT r.weekStartDate,COUNT(r)
+             FROM WeeklyReport r
+             WHERE r.reportStatus=:status
+             AND (:userId IS NULL OR r.user.id=:userId)
+             AND r.weekStartDate BETWEEN :start AND :end
+             GROUP BY r.weekStartDate
+             ORDER BY r.weekStartDate ASC
+             """)
     List<Object[]> tasksCompletedTrend(@Param("userId") Long userId,
                                        @Param("status") ReportStatus reportStatus,
                                        @Param("start") LocalDate start,

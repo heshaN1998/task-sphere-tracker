@@ -1,5 +1,6 @@
 package com.sisencodigital.TaskSphere.dtos.responcedtos;
 
+import com.sisencodigital.TaskSphere.entities.ReportStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,19 +16,22 @@ import java.time.LocalDateTime;
 public class WeeklyResponseDTO {
     private Long id;
     private Long userId;
+    private String userFullName;
 
     private Long projectId;
     private String projectName;
 
-    private String weekStartDate;
-    private String weekEndingDate;
+    private LocalDate weekStartDate;
+    private LocalDate weekEndingDate;
     private String taskPlanned;
     private String taskCompleted;
-    private Double hourseWorked;
+    private Double hoursWorked;
 
     private String bugs;
-    private String nots;
+    private String notes;
 
+    private ReportStatus reportStatus;
+    private LocalDateTime submittedAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
