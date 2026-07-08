@@ -30,7 +30,7 @@ import java.util.List;
 @EnableWebSecurity
 @EnableMethodSecurity // enables @PreAuthorize on controller/service methods
 @RequiredArgsConstructor
-public class SecurityConfig implements {
+public class SecurityConfig{
     private final JwtAuthFilter jwtAuthFilter;
     private final UserDetailServiceIMPL userDetailsService;
 
@@ -44,8 +44,7 @@ public class SecurityConfig implements {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsSerivice(userDetailsService);
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }

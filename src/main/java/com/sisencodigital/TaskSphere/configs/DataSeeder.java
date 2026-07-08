@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
                         .fullName("Default Manager")
                         .email("manager@company.com")
                         .password(passwordEncoder.encode("Manager@123"))
-                        .role(Role.MANAGER)
+                        .role(Role.TEAM_MEMBER)
                         .active(true)
                         .build();
                 userRepository.save(manager);
