@@ -5,6 +5,7 @@ import com.sisencodigital.TaskSphere.entities.Role;
 import com.sisencodigital.TaskSphere.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,9 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping
+
+    @GetMapping("/users")
+    @PreAuthorize("hasRole('MANAGER')")
     public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
         return ResponseEntity.ok(userService.getAllUsers());
     }

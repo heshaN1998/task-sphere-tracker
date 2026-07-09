@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,9 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtil {
+    @Value("${jwt.secret}")
     private String secret;
+    @Value("${jwt.expiration-ms}")
     private long expirationMs;
 
     private SecretKey signKey() {
@@ -38,7 +41,7 @@ public class JwtUtil {
                 .subject(subject)
                 .issuedAt(now)
                 .expiration(expire)
-                .signWith(signKey(),SignatureAlgorithm.ES256)
+                .signWith(signKey(),Jwts.SIG.HS256)
                 .compact();
     }
 
@@ -81,6 +84,7 @@ public class JwtUtil {
     }
     public boolean isTokenValid(String token,UserDetails userDetails){
         try{
+
             final String username=extractUsername(token);
             return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
         } catch (ExpiredJwtException | io.jsonwebtoken.security.SignatureException | io.jsonwebtoken.MalformedJwtException e) {

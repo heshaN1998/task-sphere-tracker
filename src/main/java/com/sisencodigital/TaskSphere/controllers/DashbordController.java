@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 
 @RestController
-@RequestMapping("/dashboard")
+@RequestMapping("/dashbord")
 @RequiredArgsConstructor
 public class DashbordController {
     private final DashbordService dashbordService;

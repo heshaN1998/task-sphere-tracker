@@ -67,7 +67,7 @@ public class SecurityConfig{
                         .requestMatchers(HttpMethod.POST, "/projects/**").hasRole("MANAGER")
                         .requestMatchers(HttpMethod.PUT, "/projects/**").hasRole("MANAGER")
                         .requestMatchers(HttpMethod.DELETE, "/projects/**").hasRole("MANAGER")
-                        .requestMatchers("/dashboard/**").hasRole("MANAGER")
+                        .requestMatchers("/dashbord/**").hasRole("MANAGER")
                         .requestMatchers("/users/**").hasRole("MANAGER")
                         .requestMatchers("/reports/**").authenticated()
                         .anyRequest().authenticated()
@@ -83,6 +83,7 @@ public class SecurityConfig{
         configuration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
+        configuration.setExposedHeaders(List.of("Authorization"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
