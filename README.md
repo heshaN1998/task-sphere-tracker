@@ -10,6 +10,7 @@ that allows managers to manage projects, users, and monitor weekly reports submi
 - PostgreSQL Database
 - Maven
 - Lombok
+- Spting Ai bom / Ai advisor vecor stor / open ai 
 
 ##Project Structure
 TaskSphere
