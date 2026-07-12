@@ -39,7 +39,6 @@ public class AuthService {
                 .build();
         user = userRepository.save(user);
 
-        user = userRepository.save(user);
         UserPrincipal userPrincipal = new UserPrincipal(user);
         String token = jwtUtil.generateToken(userPrincipal, user.getId(), user.getRole().name());
 
