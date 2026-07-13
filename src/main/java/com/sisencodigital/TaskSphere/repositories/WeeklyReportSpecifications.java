@@ -14,7 +14,7 @@ public class WeeklyReportSpecifications {
                                                           LocalDate weekStartDate,
                                                           LocalDate fromDate,
                                                           LocalDate toDate,
-                                                          ReportStatus status) {
+                                                          ReportStatus reportStatus) {
                 return (root, query, cb) -> {
                 var predicates = cb.conjunction();
 
@@ -31,10 +31,10 @@ public class WeeklyReportSpecifications {
                 predicates = cb.and(predicates, cb.greaterThanOrEqualTo(root.get("weekStartDate"), fromDate));
                 }
                 if (toDate != null) {
-                predicates = cb.and(predicates, cb.lessThanOrEqualTo(root.get("weekEndDate"), toDate));
+                predicates = cb.and(predicates, cb.lessThanOrEqualTo(root.get("weekEndingDate"), toDate));
                 }
-                if (status != null) {
-                predicates = cb.and(predicates, cb.equal(root.get("status"), status));
+                if (reportStatus != null) {
+                predicates = cb.and(predicates, cb.equal(root.get("status"), reportStatus));
                 }
                 return predicates;
         };
